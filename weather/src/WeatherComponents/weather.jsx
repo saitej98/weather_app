@@ -14,7 +14,7 @@ function Weather() {
             )
               .then((res) => {
                   sevenDays(res.data.coord.lat, res.data.coord.lon);
-                  
+
             })
             .catch((err) => {
               console.log(err);
@@ -25,7 +25,7 @@ function Weather() {
         try {
           axios
             .get(
-              `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=44d2f0f421a5b483b38e2ea12704107e&units=metric`
+              `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=b325ed4f82c44e2e1abd0702faff7d72&units=metric`
             )
             .then((res) => {
               setDays(res.data.daily);
