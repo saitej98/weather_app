@@ -71,3 +71,26 @@
     height: 500px;
   border: none;
   }
+  .daytemp{
+    height: 140px;
+    width: 55%;
+    margin: auto;
+    display: flex;
+    margin-top: 25px;
+    justify-content: space-between;
+    margin-bottom: 30px;
+  }
+
+  .daytemp>div{
+    width: 11%;
+    font-weight: 600;
+    border: 2px solid lightgrey;
+    border-radius: 10px;
+
+  }
+  .daytemp>div:focus{
+    border: 3px solid rgb(0,166,250);
+    margin-top: -3px;
+    padding-top:10px ;
+    border-radius: 10px;
+  }
