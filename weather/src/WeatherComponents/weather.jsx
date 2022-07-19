@@ -98,8 +98,6 @@ function Weather() {
             key={e.id}
             onClick={() => {
               weektemp(
-                e.temp.day,
-                e.weather[0].icon,
                 e.sunrise,
                 e.sunset,
                 e.pressure,
@@ -107,7 +105,7 @@ function Weather() {
                 e
               );
             }}
-            tabIndex="1"
+            tabIndex="0"
           >
             <div>
               {new Date(`${e.dt}` * 1000).toLocaleDateString("en", {
