@@ -1,16 +1,14 @@
-import { useState,useRef } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
 
 function Weather() {
   const [city, setCity] = useState("");
   const [days, setDays] = useState([]);
   const hourTempArray = useRef([]);
-  const [tempgraph, setTempgraph] = useState("");
-  const [tempicon, setTempicon] = useState("");
-  const [sunrise, setSunrise] = useState("");
-  const [sunset, setSunset] = useState("");
   const [pressure, setPressure] = useState("");
   const [humidity, setHumidity] = useState("");
+  const [sunset, setSunset] = useState("");
+  const [sunrise, setSunrise] = useState("");
 
   const searchCity = () => {
     try {
@@ -18,8 +16,8 @@ function Weather() {
         .get(
           `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=b325ed4f82c44e2e1abd0702faff7d72&units=metric`
         )
-          .then((res) => {
-            console.log(res)
+        .then((res) => {
+          console.log(res);
           sevenDays(res.data.coord.lat, res.data.coord.lon);
         })
         .catch((err) => {
@@ -41,7 +39,7 @@ function Weather() {
         });
     } catch {}
   };
-  const weektemp = ( sunRise, sunSet, presure, humdity, e) => {
+  const weektemp = (sunRise, sunSet, presure, humdity, e) => {
     let temp = [];
     let hrRise = new Date(sunRise * 1000).getHours();
     let minRise = "0" + new Date(sunRise * 1000).getMinutes();
@@ -97,13 +95,7 @@ function Weather() {
             id="detaildaytemp"
             key={e.id}
             onClick={() => {
-              weektemp(
-                e.sunrise,
-                e.sunset,
-                e.pressure,
-                e.humidity,
-                e
-              );
+              weektemp(e.sunrise, e.sunset, e.pressure, e.humidity, e);
             }}
             tabIndex="0"
           >
