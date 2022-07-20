@@ -3,16 +3,19 @@ import axios from "axios";
 import Chart from "react-apexcharts";
 
 function Weather() {
-  const [city, setCity] = useState("Srikakulam");
+  const [city, setCity] = useState("");
   const [days, setDays] = useState([]);
   const hourTempArray = useRef([]);
-  const [pressure, setPressure] = useState("");
-  const [humidity, setHumidity] = useState("");
-  const [sunset, setSunset] = useState("");
-  const [sunrise, setSunrise] = useState("");
+  const [pressure, setPressure] = useState("1006");
+  const [humidity, setHumidity] = useState("41");
+  const [sunset, setSunset] = useState("7:06");
+  const [sunrise, setSunrise] = useState("6:10");
   const [tempday, setTempday] = useState("");
   const [tempicon, setTempicon] = useState("");
+  const [region, setRegion] = useState("");
 
+
+  // fetch from weather api by city name...
   const searchCity = () => {
     try {
       axios
@@ -27,6 +30,8 @@ function Weather() {
         });
     } catch (error) {}
   };
+
+  // fetching week data from weather api...
   const sevenDays = (lat, lon) => {
     try {
       axios
@@ -41,6 +46,7 @@ function Weather() {
         });
     } catch {}
   };
+
   const weektemp = (day, icon, sunRise, sunSet, pressure, humdity, e) => {
     let temp = [];
     let hrRise = new Date(sunRise * 1000).getHours();
@@ -50,7 +56,7 @@ function Weather() {
     let rise = hrRise + ":" + minRise();
     let set = (hrSet % 12) + ":" + minSet();
     let result = Array.isArray(e);
-    if (result == false) {
+    if (result === false) {
       for (let x in e.temp) {
         temp.push(e.temp[x] + "℃");
       }
@@ -67,10 +73,58 @@ function Weather() {
     setHumidity(humdity);
   };
 
+  // live location update.
+  const Livelocation = () => {
+    axios
+      .get(" https://ipinfo.io/json?token=45420d190496ea")
+      .then((response) => {
+        setCity(response.data.city);
+        setRegion(response.data.region);
+        axios
+          .get(
+            `https://api.openweathermap.org/data/2.5/weather?q=${response.data.city}&appid=b325ed4f82c44e2e1abd0702faff7d72&units=metric`
+          )
+          .then((res) => {
+            console.log(res.data);
+            sevenDays(res.data.coord.lat, res.data.coord.lon);
+            let arr = [];
+            let count = 3;
+            for (let x in res.data.main) {
+              if (count > 2) {
+                count--;
+              } else {
+                count++;
+              }
+              if (x === "feels_like" || "temp" || "temp_max" || "temp_min") {
+                arr.push(res.data.main[x] + count + "℃");
+              } else {
+                continue;
+              }
+            }
+            arr = arr.splice(0, 4);
+            weektemp(
+              res.data.main.temp,
+              res.data.weather[0].icon,
+              res.data.sys.sunrise,
+              res.data.sys.sunset,
+              res.data.main.pressure,
+              res.data.main.humidity,
+              arr
+            );
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((status) => {
+        console.log("Failed to detect Live Locaion", status);
+      });
+  };
+
   return (
     <div>
       <div className="bar">
-        <button className="live">live</button>
+        <button className="live" onClick={Livelocation}><img src="https://image.shutterstock.com/image-vector/vector-black-colored-map-pin-260nw-1987787240.jpg" alt="" /></button>
         <input
           type="text"
           className="city"
