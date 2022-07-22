@@ -121,7 +121,7 @@ function Weather() {
   };
 
   return (
-    <div>
+    <div className="container">
       <div className="bar">
         <button className="live" onClick={Livelocation}>
           <img
