@@ -46,6 +46,7 @@
   margin: auto;
   margin-top: 15px;
   margin-bottom: 40px;
+  border: 1px solid whitesmoke;
 }
 .live {
   width: 50px;
@@ -61,7 +62,6 @@ button > img {
 button > img:hover {
   width: 100%;
   height: 100%;
-  border: 1px solid #b7b8ba;
 }
 .search {
   background-color: transparent;
@@ -70,7 +70,8 @@ button > img:hover {
 }
 .search:hover {
   cursor: pointer;
-  border: 1px solid #282c34;
+  color: white;
+  background-color: black;
 }
 .city {
   width: 90%;
@@ -81,7 +82,7 @@ button > img:hover {
   font-weight: 600;
   border-radius: 6px;
   cursor: pointer;
-  border: 1px solid whitesmoke;
+  border: transparent;
 }
 
 .mapdiv {
@@ -183,7 +184,7 @@ button > img:hover {
   }
   #daytemp {
     overflow: scroll;
-    width: 90%;
+    width: 100%;
   }
   #daytemp > div {
     width: 300px;
