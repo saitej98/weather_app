@@ -233,12 +233,7 @@ function Weather() {
               },
             },
             xaxis: {
-              categories: [
-                "12:00am",
-                "6:00am",
-                "12:00pm",
-                "6:00pm",
-              ],
+              categories: ["6:00am", "12:00pm", "6:00pm", "12:00am"],
             },
           }}
         />
